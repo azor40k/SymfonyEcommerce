@@ -1,0 +1,10 @@
+<nav class="mini navbar navbar-expand-lg navbar-light bg-light text-center">
+    <ul class="mini-ul navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ path('admin') }}">Product</a></li>
+
+        {% if is_granted('ROLE_SUPER_ADMIN') %}     
+        <li class="nav-item"><a class="nav-link" href="{{ path('super_admin') }}">Member List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ path('super_admin') }}">All Order</a></li>
+        {% endif %}
+    </ul>
+</nav>

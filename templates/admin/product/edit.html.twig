@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+<h1>Edit Product</h1>
+
+{{ include('admin/product/_form.html.twig', {'button_label': 'Update'}) }}
+
+<a class="btn btn-secondary" href="{{ path('admin') }}">back to list</a>
+
+{{ include('admin/product/_delete_form.html.twig') }}
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#product_picture").change(function () {
+        readURL(this);
+    });
+</script>
+
+
+{% endblock %}
+

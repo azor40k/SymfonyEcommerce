@@ -4,6 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    #chemin d'upload d'image
+    upload_product: '%kernel.project_dir%/public/upload/product/'
+    upload_profile: '%kernel.project_dir%/public/upload/product/'
 
 services:
     # default configuration for services in *this* file

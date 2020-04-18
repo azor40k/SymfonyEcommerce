@@ -1,12 +1,114 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} | Symfony Sneaker Factory</title>
+
+    {% block stylesheets %}{% endblock %}
+
+    {# Bootstrap import #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    
+</head>
+
+<style>
+.navbar {padding: .1rem 1rem}
+.dropdown-menu {padding: .01rem 0.1rem;min-width: 5rem;width: 8rem;left: -18px}
+.mb-5,.my-5 {margin-bottom: 0rem !important;margin-top: 0rem !important;}
+.container {min-height: 83vh;}
+.nav-profile {object-fit: cover;width: 40px;height: 40px;border-radius: 50%;}
+.alert {position: absolute;z-index: 9999;left:50%;}
+
+.profile-picture{
+    
+}
+</style>
+
+<body class="bg-dark">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <a class="navbar-brand" href="{{ path('index') }}">Symfony Sneaker Factory</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+                
+                {# affichage menu si utilisateur connecté #}
+                {% if app.user is not null %}
+                <li class="nav-item"><a class="nav-link" href="{{ path('cart_content') }}">Cart</a></li>
+                {# affichage li si l'utilisateur est autorisé #}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item"><a class="nav-link" href="{{ path('admin') }}">Administration</a></li>
+                {% endif %}{% endif %}
+
+            </ul>
+
+            <div class="my-5 my-lg-0">
+
+                {# affichage menu profile si utilisateur connecté #}
+                {% if app.user is not null %}
+                <li class="navbar-brand dropdown">
+
+                    <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="nav-profile" src="{{ asset('upload/default/default-pp.jpg')}}" />
+                    </a>
+
+                    <div id="profile" class="dropdown-menu ml-6" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href=" {{ path('profile') }} ">Profile</a>
+                        <a class="dropdown-item" href=" {{ path('cart') }} ">Your Orders</a>
+                        <a class="dropdown-item" href=" {{ path('app_logout') }} ">Logout</a>
+                    </div>
+
+                </li>
+
+                {# affichage lien connexion/inscription si app.user empty #}
+                {% else %}
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href=" {{ path('app_login') }} ">SignIn</a></li>
+                    <li class="nav-item"><a class="nav-link" href=" {{ path('app_register') }} ">SignUp</a></li>
+                </ul>                   
+                {% endif %}                
+                
+            </div>
+        </div>
+    </nav>
+
+    {# affichage message flash #}
+    {% for type, messages in app.flashes %}{% for message in messages %}
+    <p id="alert" class="alert alert-{{ type }}">{{ message }}</p>
+    {% endfor %}{% endfor %}
+
+    <div class="container bg-light">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    </div>
+
+
+
+    {# Link Jquery & Bootstrap JS Librairie #}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script>
+        if (document.getElementById("alert").style.display = "block") {
+            setInterval(() => {
+                document.getElementById("alert").remove()
+            }, 2000);
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    {% block javascripts %}{% endblock %}
+
+</body>
+
 </html>

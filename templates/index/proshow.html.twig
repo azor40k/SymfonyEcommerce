@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.nom }}'s Page{% endblock %}
+
+{% block body %}
+
+<style>
+#cart_content{display:flex; flex-direction:row};}
+.row{margin-right:0px;margin-left:0px;}
+.col-sm-10{padding-right: 0px;padding-left: 30px;}
+#cart_content_Add{margin-left: 30px;}
+.product-sheet{display:flex;flex-direction:row;}
+@media screen and (max-width:900px){.product-sheet{flex-direction:column;}}
+</style>
+
+<h1 class="font-weight-bold text-center">{{ product.nom }}</h1>
+<hr />
+
+<div>
+    <div class="product-sheet btn btn-light text-center">
+            <div><img src="{{ asset('upload/product/'~product.picture)}}"style="height:180px;width:250px;object-fit: cover;" /></div>
+            <div class="text-center" style="margin:auto;">
+                <h4>Stock available | {{ product.stock }}</h4>
+                
+                <p style="padding:15px;"> {{ product.description }} </p>
+                <h4> {{ product.price }} €</h4>
+                
+            </div>
+    </div><br/>
+    {% if app.user is null %}
+
+
+    <h4><a href=" {{ path('app_login') }} ">SignIn</a>/<a href=" {{ path('app_register') }} ">SignUp</a><h4>
+
+    <p class="text-danger">You have to be connected to purchase this article<p>
+    {% else %}
+    <div>
+    {{ form(form_cart_add) }}
+
+    {# affichage bouton delete si app.user est admin #}
+    {% if is_granted('ROLE_ADMIN') %}
+    {{ include('admin/product/_delete_form.html.twig') }}
+    {% endif %}    
+    </div>
+    {% endif %}    
+    
+</div>
+
+<hr />
+
+
+{% endblock %}

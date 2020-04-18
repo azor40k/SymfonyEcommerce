@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<style>
+.grid-product{display: grid;grid-template-columns: repeat(4, 1fr);}
+@media screen and (max-width:1200px){.grid-product{grid-template-columns: repeat(3, 1fr);}}
+@media screen and (max-width:1000px){.grid-product{grid-template-columns: repeat(2, 1fr);}}
+@media screen and (max-width:780px){.grid-product{grid-template-columns: repeat(1, 1fr);}}
+</style>
+<div>
+
+    <h1 class="font-weight-bold text-center">Symfony Sneaker Factory</h1>
+    <hr>
+    {% if products is not empty %}
+    <div class="grid-product text-center">
+
+        {% for product in products %}
+        <a class="btn btn-light"href="{{ path('proshow', {'nom': product.nom } ) }}">
+            <div class="text-center" style="height:260px; width:250px;margin:auto; ">
+                <div><img src="{{ asset('upload/product/'~product.picture)}}"
+                        style="height:180px;width:250px;object-fit: cover;" />
+                </div>
+                <div>
+                    <h3> {{ product.nom }} </h3>
+                    <h4> {{ product.price }} €</h4>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+
+    </div>
+    {% else %}
+    <h3 class="text-danger">no </h3>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}<br/><hr>
+    <a class="btn btn-info" href="{{ path('product_new') }}">Add Product</a><br/><br/>
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block body %}
+<style>
+tbody {display:block;height:50vh;overflow:auto;}
+thead, tfoot,tbody tr {display:table;width:100%;table-layout:fixed;}
+thead {width: calc( 100% - 1em )}
+.table td{margin: auto;vertical-align: middle;}
+</style>
+
+<div>
+
+    <h1 class="text-center">Your Cart</h1>    
+
+{% if cart is not empty %}
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th colspan="2">product</th>
+                <th>price</th>
+                <th>qte</th>
+                <th></th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            
+            
+            {% set total_cart = 0 %} {# déclaration de la valeur total hors de la boucle #}
+
+            {% for content in contents %}
+
+            <tr class="text-center">
+
+                {# affichage info des produits du panier actif #}
+                <td><img src="{{ asset('upload/product/'~content.product.picture)}}"style="height:100px;width:150px;object-fit: cover;"/></td>
+                <td> {{ content.product.nom }} </td>
+                <td> {{ content.product.price }}€</td>
+                <td> {{ content.quantity }} </td>
+                <td>
+
+                {% set line_total = content.product.price * content.quantity %} {# calcul prix total de la ligne #}
+                {{ line_total }}€ {# affichage prix total de la ligne #}
+
+                {% set total_cart = total_cart + line_total %} {# calcul prix total du panier #}
+
+                </td> 
+
+                {# suppresion du produit du panier via id #}
+                <td><a class="btn btn-danger" href=" {{ path('removeCart', {'id' : content.id }) }} ">remove</a></td>
+                {# <td>{{ dump(content) }}</td> #}
+
+            </tr>
+            {% endfor %}
+            <tfoot>
+                <tr>
+                    <td colspan="4">Total:</td>
+                    <td>{{ total_cart }}€</td> {# affichage prix total du panier #}
+                    <td><a class="btn btn-primary" href=" {{ path('buyCart') }} ">acheter</a></td>
+                </tr> 
+            </tfoot>
+            
+        </tbody>
+    </table>
+
+{% else %}                
+
+    <h4 class=" text-center text-danger">NOPE</h4>
+
+{% endif %}
+    
+</div>
+{% endblock %}

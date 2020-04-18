@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acces Denied | Symfony Sneaker Factory</title>
+    {# Bootstrap import #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+        
+</head>
+
+<style>
+body {padding: 0;margin: 0;background: repeating-linear-gradient(45deg, darkred, darkred 2px, #330000 3px, #330000 8px);-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;display: flex;}
+.block {background-color: lightgray;border-radius: 5px;margin: auto;width: 85%;cursor: not-allowed;}
+h1 {padding-top: 30px;font-size: 60px;font-family: Arial;text-align: center;border-bottom: 1px solid #333;border-bottom-style: inset;padding-bottom: 20px;}
+span {color: red;text-decoration: none;cursor: not-allowed;}
+p {text-align: center;font-family: Arial;font-weight: bold;padding-bottom: 3%;}
+a{text-decoration:none;}
+</style>
+
+<body>
+    <div class="block"><br>
+        <h2 class="text-center">Symfony Sneaker Factory</h2>
+        <h1>            
+            <span>X</span> Access Denied(403)
+        </h1><br>
+        <p class="text-danger" >
+            you don't have permission to access this page <br>
+            <a class="btn btn-light" href=" {{ path('index') }} "> go back to store</a><br /><br /><hr>
+        </p>
+    </div><br><br>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{app.user.prenom|capitalize ~' '~ app.user.nom|upper}}'s Profile{% endblock %}
+
+{% block stylesheets %}{{ include('profile/profile-css.html.twig') }}{% endblock %}
+
+{% block body %}
+
+<div class="main-profile">
+
+    {{ include('profile/profile-menu.html.twig') }}
+
+    <div class="text-center"><br/>
+
+        
+        <img class="profile-picture" src="{{asset('upload/default/default-pp.jpg') }}"/>    
+        
+
+        <br/><br/>    
+        <h4>
+            {% if app.user.roles|length == 3 %}
+            <span class="text-success">SUPER ADMINISTRATOR</span>
+            {% elseif app.user.roles|length == 2 %}
+            <span class="text-warning">ADMINISTRATOR</span>
+            {% else %}
+            <span class="text-primary">Member</span>
+            {% endif %}
+        </h4>
+        <h3> {{app.user.prenom|capitalize}} {{app.user.nom|upper}} </h3>
+        <h3> {{app.user.email}} </h3><br />
+
+        <a class="btn btn-primary" href=" {{ path('editProfile', {'id': app.user.id }) }} ">Edit</a>
+    
+    <br/><br/>
+    </div>
+
+</div>
+{% endblock %}
