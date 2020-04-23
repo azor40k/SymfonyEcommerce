@@ -156,7 +156,7 @@ class ProductController extends AbstractController
             $entityManager->remove($product);
             $entityManager->flush();
 
-            $this->addFlash("succes", $translator->trans('file.prodel'));
+            $this->addFlash("success", $translator->trans('file.prodel'));
         }
 
         return $this->redirectToRoute('admin');

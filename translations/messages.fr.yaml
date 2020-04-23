@@ -145,6 +145,7 @@ file:
   procreate: 'Produit ajouté au Magasin'
   promaj: 'Produit Mis à Jour'
   prodel: 'Produit supprimé'
+  promess: 'Êtes-vous sûr de vouloir supprimer ce produit?'
 
   #user
   usermaj: 'Profile Mis à Jour'

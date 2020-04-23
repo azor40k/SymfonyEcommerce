@@ -20,7 +20,7 @@ class Cart
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="carts")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $user;
 

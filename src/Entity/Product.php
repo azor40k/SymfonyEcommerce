@@ -59,6 +59,7 @@ class Product
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CartContent", mappedBy="product")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $cartContents;
 

@@ -49,6 +49,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Cart", mappedBy="user")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $carts;
 

@@ -145,6 +145,7 @@ file:
   procreate: 'Product added to store'
   promaj: 'Product Updated'
   prodel: 'Product Deleted'
+  promess: 'Are you sure you want to delete this item?'
 
   #user
   usermaj: 'Profile Updated'
