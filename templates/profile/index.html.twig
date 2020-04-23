@@ -10,28 +10,28 @@
 
     {{ include('profile/profile-menu.html.twig') }}
 
-    <div class="text-center"><br/>
+    <div class="text-center"><br />
 
-        
-        <img class="profile-picture" src="{{asset('upload/default/default-pp.jpg') }}"/>    
-        
 
-        <br/><br/>    
+        <img class="profile-picture" src="{{asset('upload/default/default-pp.jpg') }}" style="border-style: solid;" />
+
+
+        <br /><br />
         <h4>
             {% if app.user.roles|length == 3 %}
-            <span class="text-success">SUPER ADMINISTRATOR</span>
+            <span class="text-success">{{ 'statut.s'|trans }}</span>
             {% elseif app.user.roles|length == 2 %}
-            <span class="text-warning">ADMINISTRATOR</span>
+            <span class="text-warning">{{ 'statut.a'|trans }}</span>
             {% else %}
-            <span class="text-primary">Member</span>
+            <span class="text-primary">{{ 'statut.m'|trans }}</span>
             {% endif %}
         </h4>
         <h3> {{app.user.prenom|capitalize}} {{app.user.nom|upper}} </h3>
         <h3> {{app.user.email}} </h3><br />
 
-        <a class="btn btn-primary" href=" {{ path('editProfile', {'id': app.user.id }) }} ">Edit</a>
-    
-    <br/><br/>
+        <a class="btn btn-primary" href=" {{ path('editProfile', {'id': app.user.id }) }} ">{{ 'mod'|trans }}</a>
+
+        <br /><br />
     </div>
 
 </div>

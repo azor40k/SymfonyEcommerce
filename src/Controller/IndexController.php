@@ -12,6 +12,7 @@ use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class IndexController extends AbstractController
 {
@@ -29,14 +30,14 @@ class IndexController extends AbstractController
     /**
      * @Route("/proshow/{nom}", name="proshow")
      */
-    public function proshow(Request $request, ProductRepository $productRepository, Product $product=null, CartRepository $cartRepository, CartContentRepository $cartContentRepository)
+    public function proshow(Request $request, ProductRepository $productRepository, Product $product=null, CartRepository $cartRepository, CartContentRepository $cartContentRepository, TranslatorInterface $translator)
     {   
         //vérification que le produit existe        
         if($product !=null) {
 
             //vérification qu'un utilisateur est bien connecté
             if($this->getUser() == null){
-                $this->addFlash("danger", 'You have to be connected');
+                $this->addFlash("danger", $translator->trans('file.connect'));
                 return $this->redirectToRoute('login');
             }
 
@@ -79,12 +80,12 @@ class IndexController extends AbstractController
                         $em->persist($cartContent);
                         $em->flush();
 
-                        $this->addFlash("success", 'ok' );
+                        $this->addFlash("success", $translator->trans('file.proadd') );
                         return $this->redirectToRoute('cart_content');
                     }
                     else{
                         //message quantité trop importante
-                        $this->addFlash("danger", 'error');
+                        $this->addFlash("danger", $translator->trans('file.error'));
                         return $this->redirectToRoute('index');
                     }
                 }
@@ -100,12 +101,12 @@ class IndexController extends AbstractController
                         $em->persist($cartContent);
                         $em->flush();
 
-                        $this->addFlash("success", 'ok' );
+                        $this->addFlash("success", $translator->trans('file.proadd'));
                         return $this->redirectToRoute('cart_content');
                     }
                     else{
                         //message quantité invalide
-                        $this->addFlash("danger", 'valeur invalide');
+                        $this->addFlash("danger", $translator->trans('file.prono'));
                         return $this->redirectToRoute('proshow', ['id' => $product->getId() ]);
                     }
                 }    
@@ -116,7 +117,7 @@ class IndexController extends AbstractController
             ]);
         }        
         else{
-            $this->addFlash("danger", 'introuvable');
+            $this->addFlash("danger", $translator->trans('file.pro404'));
             return $this->redirectToRoute('index');
         }            
     }        

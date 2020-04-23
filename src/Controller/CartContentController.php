@@ -8,6 +8,8 @@ use App\Repository\CartRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 /**
 * @Route("/yourCart")
 */
@@ -16,11 +18,11 @@ class CartContentController extends AbstractController
     /**
      * @Route("/", name="cart_content")
      */
-    public function index(CartRepository $cartRepository, CartContentRepository $cartContentRepository)
+    public function index(CartRepository $cartRepository, CartContentRepository $cartContentRepository,TranslatorInterface $translator)
     {
         if($this->getUser() == null)
         {
-            $this->addFlash("danger", 'you have to be connected');
+            $this->addFlash("danger",$translator->trans('file.connect'));
             return $this->redirectToRoute('app_login');
         }
 
@@ -33,21 +35,24 @@ class CartContentController extends AbstractController
     /**
     * @Route("/removeCart/{id}", name="removeCart")
     */
-    public function removeCart(CartContent $cartContent=null)
+    public function removeCart(CartContent $cartContent=null, TranslatorInterface $translator)
     {   
         //vérification qu'il y a bien un produit enlever
         if($cartContent != null){
             
+            //supression
             $em=$this->getDoctrine()->getManager();
             $em->remove($cartContent);
             $em->flush();
 
-            $this->addFlash("success", 'produit enlever');
+            // message produit enlever et redirection
+            $this->addFlash("success", $translator->trans('file.prore'));
             return $this->redirectToRoute('cart_content');
 
         }
         else{
-            $this->addFlash("danger", 'error');
+            //message erreur et redirection
+            $this->addFlash("danger", $translator->trans('file.error'));
             return $this->redirectToRoute('cart_content');
         }
 
@@ -56,7 +61,7 @@ class CartContentController extends AbstractController
     /**
      * @Route("/buyCart" , name="buyCart")
      */
-    public function buyCart(CartRepository $cartRepository, CartContentRepository $cartContentRepository)
+    public function buyCart(CartRepository $cartRepository, CartContentRepository $cartContentRepository, TranslatorInterface $translator)
     {
         //récupération id du panier et du contenu
         $cart = $cartRepository->findOneBy(['user' => $this->getUser(), 'state' => false]);
@@ -72,7 +77,7 @@ class CartContentController extends AbstractController
 
             if($quantiteCheck < 0)
             {
-                $this->addFlash("danger", 'product stock not enough of ' . $content->getProduct()->getNom());
+                $this->addFlash("danger", $translator->trans('file.proout') . $content->getProduct()->getNom());
                 return $this->redirectToRoute('cart_content');
             }
 
@@ -88,7 +93,7 @@ class CartContentController extends AbstractController
         $em->persist($cart);
         $em->flush();
         
-        $this->addFlash("success", 'panier acheté');
+        $this->addFlash("success", $translator->trans('file.cartook'));
         return $this->redirectToRoute('index');
     }
 }

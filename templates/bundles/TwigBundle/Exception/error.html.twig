@@ -1,11 +1,32 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
 
-{% block title %}ERROR{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Internal Problem | Symfony Sneaker Factory</title>
+    {# Bootstrap import #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 
-{% block body %}
+</head>
 
+<style>
+* {margin: 0;padding: 0;font-family: 'Inconsolata', monospace;}
+.container-legend {width: 100%;height: auto;box-sizing: border-box;padding: 0.8em;}
+.message_paragraph {font-size: 18px;}
+.head_one {font-size: 40px;}
+</style>
 
-<h1>ERROR SOMETHING WENT WRONG WITH THIS PAGE</h1>
-    
+<body>
+    <div class="container-legend">
+        <h2>Symfony Sneaker Factory</h2>
+        <h1 class="head_one">Internal Server Error</h1>
+        <p class="message_paragraph">Sorry, something went wrong.</p>
+        <p class="message_paragraph">
+            Visit this page later! <a href=" {{ path('index') }} ">Go back to Store</a>
+        </p>
+    </div>
+</body>
 
-{% endblock %}
+</html>

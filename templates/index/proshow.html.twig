@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ product.nom }}'s Page{% endblock %}
+{% block title %}{{ product.nom ~' '~ 'index.show.title'|trans }}{% endblock %}
 
 {% block body %}
 
@@ -18,32 +18,32 @@
 
 <div>
     <div class="product-sheet btn btn-light text-center">
-            <div><img src="{{ asset('upload/product/'~product.picture)}}"style="height:180px;width:250px;object-fit: cover;" /></div>
-            <div class="text-center" style="margin:auto;">
-                <h4>Stock available | {{ product.stock }}</h4>
-                
-                <p style="padding:15px;"> {{ product.description }} </p>
-                <h4> {{ product.price }} €</h4>
-                
-            </div>
-    </div><br/>
+        <div><img src="{{ asset('upload/product/'~product.picture)}}"
+                style="height:180px;width:250px;object-fit: cover;" /></div>
+        <div class="text-center" style="margin:auto;">
+            <h4>{{ 'index.show.stock'|trans ~' | '~ product.stock }}</h4>
+
+            <p style="padding:15px;"> {{ product.description }} </p>
+            <h4> {{ product.price }} €</h4>
+
+        </div>
+    </div><br />
     {% if app.user is null %}
 
 
-    <h4><a href=" {{ path('app_login') }} ">SignIn</a>/<a href=" {{ path('app_register') }} ">SignUp</a><h4>
+    <h4><a href=" {{ path('app_login') }} ">{{ 'base.connexion'|trans }}</a>/<a
+            href=" {{ path('app_register') }} ">{{ 'base.inscription'|trans }}</a>
+        <h4>
 
-    <p class="text-danger">You have to be connected to purchase this article<p>
-    {% else %}
-    <div>
-    {{ form(form_cart_add) }}
+            <p class="text-danger">{{ 'index.show.p'|trans }}<p>
+                    {% else %}
+                    <div>
+                        {{ form(form_cart_add) }}
 
-    {# affichage bouton delete si app.user est admin #}
-    {% if is_granted('ROLE_ADMIN') %}
-    {{ include('admin/product/_delete_form.html.twig') }}
-    {% endif %}    
-    </div>
-    {% endif %}    
-    
+
+                    </div>
+                    {% endif %}
+
 </div>
 
 <hr />

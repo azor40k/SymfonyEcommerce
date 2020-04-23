@@ -1,0 +1,157 @@
+#/translations/messages.en.yaml
+
+#twig
+
+#base.html
+base : 
+  deconnexion: 'Logout'
+  connexion: 'Login'
+  inscription: 'Register'
+  nav:
+    brand: 'Symfony Sneaker Factory'
+    li1: 'Cart'
+    li2: 'Administration'
+    div:
+      a1: 'Profile'
+      a2: 'Your Orders'
+  
+#boutton
+enlever : 'Remove'
+acheter : 'Buy'
+delete: 'Delete'
+delete2: 'Delete Profile'
+delete3: 'Delete Product'
+retourp: 'Back to Profile'
+retour: 'Back'
+mod: 'Edit'
+save: 'Save'
+add: 'Add to Store'
+up: 'Updated'
+
+#login.html
+login:
+  div: You are connected as'
+  mdp: 'Password'
+
+#register.html
+register:
+  title: 'Register'
+#Formulaire
+Nom : 'Lastname'
+Prenom : 'Firstname'
+Email : 'E-Mail'
+Plain password : 'Password'
+Agree terms : 'Agree to Terms'
+Description: 'Caption'
+Price: 'Price'
+Stock: 'Stock'
+Product Picture: 'Product Picture'
+
+#index.html
+index:
+  title: 'Home'
+  no: 'No product in store'
+  show: 
+    title: 'Sheet'
+    p: 'You have to be connected to buy'
+    stock: 'in Stock'
+
+#cart content
+content:
+  title: 'Your Cart'
+  no: 'No product in your cart'
+  table:
+    td1: 'Product'
+    td2: 'Price'
+    td3: 'Quantity'  
+    td4: 'Action'
+
+  #old orders
+order:
+  title: 'My Orders'
+  btn: 'order n°'
+  thead: 'Bought the '
+  no: 'No order made'
+
+#profile
+profile:
+  edit:
+    title: 'Profile Editor'
+statut:
+  s: 'Super Administrator'
+  a: 'Administrator'
+  m: 'Member'
+
+#administration
+admin:
+  title: 'Administration'
+  nav: 
+    li1: 'Products'
+    li2: 'All Members'
+    li3: 'Ongoing Orders'
+  produit:
+    title: 'Products List'
+    btn: 'Add a product'
+    btns: 'Show'
+    btne: 'Edit'
+    thead:
+      tr1: 'Picture'
+      tr2: 'Name'
+      tr3: 'Price'
+      tr4: 'Stock'
+      tr5: 'Actions'
+      tr6: 'Caption'
+    no: 'No product in store'
+    edit:
+      title: 'Product edit'
+      img: 'Preview'
+    show:
+      title: 'Product'
+    new:
+      title: 'New Product'
+  user:
+    title: 'Members List'
+    you: 'You'
+    th1: 'Profile Picture'
+    th2: 'E-Mail'
+    th3: 'Lastname'
+    th4: 'Firstname'
+    th5: 'Role'
+    th6: 'Access'
+    btns: 'Set SuperAdmin'
+    btna: 'Set Admin'
+    btnm: 'Set Membre'
+  order:
+    title: 'Ongoing Order'
+    no: 'No ongoing order'
+    c: 'order n°'
+    t: 'total :'
+
+
+#add Flash
+file: 
+  error: 'Something went wrong'
+  connect: 'You have to be connected'
+  permission: "You don't have permission"
+
+  #produit
+  prore: 'Product remove'
+  proout: 'Insufficient stock '
+  cartook: 'Cart Bought'
+  proadd: 'Product added to cart'
+  prono: 'Invalide Quantity'
+  pro404: 'Product not found'
+  pro404p: 'Picture missing'
+  procreate: 'Product added to store'
+  promaj: 'Product Updated'
+  prodel: 'Product Deleted'
+
+  #user
+  usermaj: 'Profile Updated'
+
+  #register
+  regsa: 'Hello Super Administrateur'
+  regok: 'Welcome!'
+
+  #member
+  rolec: 'Permission changed'

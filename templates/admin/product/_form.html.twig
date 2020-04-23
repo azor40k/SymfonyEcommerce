@@ -1,9 +1,9 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
 
-    <div class="text-center"><h4>Preview</h4><img class="text-center"id="blah" src="" alt="your image" style="height:100px; width:auto;"/></div>
+    <div class="text-center"><h4>{{ 'admin.produit.edit.img'|trans }}</h4><img class="text-center"id="blah" src="" alt="your image" style="height:100px; width:auto;"/></div>
 
 
-    <button class="btn btn-success">{{ button_label|default('Add to store') }}</button><br/><br/>
+    <button class="btn btn-success">{{ button_label|default('add'|trans) }}</button><br/><br/>
 {{ form_end(form) }}
 

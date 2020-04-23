@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  *  //sécurité vérification admin
@@ -22,6 +23,7 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $productRepository): Response
     {
+        //affiche de tous les produits
         return $this->render('admin/product/index.html.twig', [
             'products' => $productRepository->findAll(),
         ]);
@@ -30,8 +32,9 @@ class ProductController extends AbstractController
     /**
      * @Route("/new", name="product_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TranslatorInterface $translator): Response
     {
+        //création dun nouveau produit via les infos du formulaire
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -40,11 +43,13 @@ class ProductController extends AbstractController
             //récupération de l'image
             $photo=$form->get('picture')->getData();
 
+            //vérification d'une image présente pour le produit
             if($photo == null){
-                $this->addFlash("danger", 'Picture Missing');
+                $this->addFlash("danger", $translator->trans('file.pro404p'));
                     return $this->redirectToRoute('product_new');
             }
 
+            //upload photo
             if($photo) {
                 $nomPhoto=uniqid() . '.'. $photo->guessExtension();
 
@@ -65,7 +70,7 @@ class ProductController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
-            $this->addFlash("success", 'Product Added');
+            $this->addFlash("success", $translator->trans('file.procreate'));
             return $this->redirectToRoute('admin');
         }
 
@@ -80,6 +85,7 @@ class ProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
+        //affichage du produit
         return $this->render('admin/product/show.html.twig', [
             'product' => $product,
         ]);
@@ -88,8 +94,9 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/{id}/edit", name="product_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Product $product): Response
+    public function edit(Request $request, Product $product, TranslatorInterface $translator): Response
     {
+        //création du formulaire et récupération de donnée
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
@@ -109,7 +116,7 @@ class ProductController extends AbstractController
                 }
 
                 catch(FileException $e) {
-                    $this->addFlash("danger", 'Error');
+                    $this->addFlash("danger", $translator->trans('file.error'));
                     return $this->redirectToRoute('admin');
                 }
                 $product->setPicture($nomPhoto);
@@ -117,7 +124,7 @@ class ProductController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             //message Update success
-            $this->addFlash("success", 'updated');
+            $this->addFlash("success", $translator->trans('file.promaj'));
             return $this->redirectToRoute('admin');
         }
 
@@ -130,24 +137,26 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/{id}/delete", name="product_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Product $product): Response
-    {
+    public function delete(Request $request, Product $product, TranslatorInterface $translator): Response
+    {   
+        //vérification de validation
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
 
             //sécurité vérification admin
             if($this->getUser()->hasRole('ROLE_ADMIN') == false )
             {
-                $this->addFlash("danger", 'no permission');
+                $this->addFlash("danger", $translator->trans('file.permission'));
                 return $this->redirectToRoute('profile');
             }
-
+            
+            //supression de l'image dans le dossier upload
             unlink($this->getParameter('upload_product').$product->getPicture());            
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
             $entityManager->flush();
 
-            $this->addFlash("succes", 'Product Deleted');
+            $this->addFlash("succes", $translator->trans('file.prodel'));
         }
 
         return $this->redirectToRoute('admin');

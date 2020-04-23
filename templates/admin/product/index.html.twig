@@ -1,42 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}{{ 'admin.title'|trans }}{% endblock %}
 
 {% block stylesheets %}{{ include('admin/product/product-css.html.twig') }}{% endblock %}
 
 {% block body %}
-    {{ include('admin/admin-menu.html.twig') }}
-    <h1>Product List</h1>
-    <a class="btn btn-info" href="{{ path('product_new') }}">Create new</a><br/><br/>
+{{ include('admin/admin-menu.html.twig') }}
+<h1>{{ 'admin.produit.title'|trans }} </h1>
+<a class="btn btn-info" href="{{ path('product_new') }}">{{ 'admin.produit.btn'|trans }}</a><br /><br />
 
-    <table class="table text-center">
-        <thead>
-            <tr>
-                <th>Picture</th>
-                <th>Nom</th>
-                <th>Price</th>
-                <th>Stock</th>                
-                <th colspan="2">actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>{{ 'admin.produit.thead.tr1'|trans }}</th>
+            <th>{{ 'admin.produit.thead.tr2'|trans }}</th>
+            <th>{{ 'admin.produit.thead.tr3'|trans }}</th>
+            <th>{{ 'admin.produit.thead.tr4'|trans }}</th>
+            <th colspan="2">{{ 'admin.produit.thead.tr5'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for product in products %}
-            <tr>
-                <td><img src="{{ asset('upload/product/'~product.picture)}}" style="height:50px;"/></td>
-                <td>{{ product.nom }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.stock }}</td>                
-                <td id="option" colspan="2">
-                    <a class="btn btn-secondary" href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                    <a class="btn btn-primary" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-                    {{ include('admin/product/_delete_form.html.twig') }}
-                </td>
-            </tr>
+        <tr>
+            <td><img src="{{ asset('upload/product/'~product.picture)}}" style="height:50px;" /></td>
+            <td>{{ product.nom }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+            <td id="option" colspan="2">
+                <a class="btn btn-secondary" href="{{ path('product_show', {'id': product.id}) }}">{{ 'admin.produit.btns'|trans }}</a>
+                <a class="btn btn-primary" href="{{ path('product_edit', {'id': product.id}) }}">{{ 'admin.produit.btne'|trans }}</a>
+                {{ include('admin/product/_delete_form.html.twig') }}
+            </td>
+        </tr>
         {% else %}
-            <tr>
-                <td class="text-danger" colspan="5">no product in store</td>
-            </tr>
+        {# message si pas de produit #}
+        <tr>
+            <td class="text-danger" colspan="5">{{ 'admin.produit.no'|trans }}</td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 {% endblock %}

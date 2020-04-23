@@ -11,13 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator, TranslatorInterface $translator): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('profile');
@@ -53,7 +54,7 @@ class RegistrationController extends AbstractController
                 $entityManager->flush();
 
                 // do anything else you need here, like send an email
-
+                $this->addFlash("success", $translator->trans('file.regsa'));
                 return $guardHandler->authenticateUserAndHandleSuccess(
                     $user,
                     $request,
@@ -78,7 +79,7 @@ class RegistrationController extends AbstractController
                 $entityManager->flush();
 
                 // do anything else you need here, like send an email
-
+                $this->addFlash("success", $translator->trans('file.regok'));
                 return $guardHandler->authenticateUserAndHandleSuccess(
                     $user,
                     $request,

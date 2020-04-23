@@ -1,35 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}{{ 'admin.produit.show.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Product: {{ product.nom }}</h1>
+    <h1>{{ product.nom }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Picture</th>
+                <th>{{ 'admin.produit.thead.tr1'|trans }}</th>
                 <td><img src="{{ asset('upload/product/'~product.picture)}}" style="height:50px;"/></td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{ 'admin.produit.thead.tr6'|trans }}</th>
                 <td>{{ product.description }}</td>
             </tr>
             <tr>
-                <th>Price</th>
+                <th>{{ 'admin.produit.thead.tr3'|trans }}</th>
                 <td>{{ product.price }}</td>
             </tr>
             <tr>
-                <th>Stock</th>
+                <th>{{ 'admin.produit.thead.tr4'|trans }}</th>
                 <td>{{ product.stock }}</td>
             </tr>
             
         </tbody>
     </table>
 
-    <a class="btn btn-secondary" href="{{ path('admin') }}">back to list</a>
+    {# bouton retour #}
+    <a class="btn btn-secondary" href="{{ path('admin') }}">{{ 'retour'|trans }}</a>
 
-    <a class="btn btn-primary" href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-
+    {# bouton edit #}
+    <a class="btn btn-primary" href="{{ path('product_edit', {'id': product.id}) }}">{{ 'admin.produit.btne'|trans }}</a>
+    {# bouton delete #}
     {{ include('admin/product/_delete_form.html.twig') }}
 {% endblock %}

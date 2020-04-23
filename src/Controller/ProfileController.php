@@ -6,8 +6,8 @@ use App\Entity\User;
 use App\Form\ProfileEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
 * @Route("/profile")
@@ -25,9 +25,9 @@ class ProfileController extends AbstractController
     /**
      * @Route("/editProfile/{id}", name="editProfile")
      */
-    public function editProfile(Request $request, User $user=null)
+    public function editProfile(Request $request, User $user=null, TranslatorInterface $translator)
     {
-
+        //vérification si user existant
         if( $user != null){
 
             $form = $this->createForm(ProfileEditType::class, $user);
@@ -37,7 +37,7 @@ class ProfileController extends AbstractController
                                 
                 $this->getDoctrine()->getManager()->flush();
 
-                $this->addFlash("success", 'Profile Updated');
+                $this->addFlash("success", $translator->trans('file.usermaj'));
                 return $this->redirectToRoute('profile');
             }
 
@@ -46,46 +46,10 @@ class ProfileController extends AbstractController
             ]);
         }
         else{
-            $this->addFlash("danger", 'Error');
+            $this->addFlash("danger", $translator->trans('file.error'));
             return $this->redirectToRoute('index');
         }
 
     }
 
-    /**
-     * @Route("/profileDelete/{id}", name="profileDelete")
-     */
-    public function profileDelete(Request $request, User $user) :Response
-    {
-
-        if( $user == $this->getUser()){
-
-            //sécurité validation de suppression de compte
-            if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-
-                //sécurité pour ne pas supprimer user le plus gradé
-                if( $user->hasRole('ROLE_SUPER_ADMIN'))
-                {
-                    $this->addFlash("danger", 'Can\'t delete your profile you are a SUPER ADMIN');
-                    return $this->redirectToRoute('profile');     
-                }
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($user);
-                $entityManager->flush();
-
-                $this->addFlash("success", 'Profile Deleted');
-                return $this->redirectToRoute('index');       
-            }
-            else{
-                $this->addFlash("danger", 'Error');
-                return $this->redirectToRoute('profile');
-            }
-        }
-        else{
-            $this->addFlash("danger", 'Error');
-            return $this->redirectToRoute('index');
-        }
-
-    }
 }

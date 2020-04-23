@@ -1,28 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My Orders{% endblock %}
+{% block title %}{{ 'order.title'|trans }}{% endblock %}
+{% block stylesheets %}{{ include('profile/profile-css.html.twig') }}{% endblock %}
 
 
 {% block body %}
 <style>
+.collapsible {background-color: #777;color: white;cursor: pointer;padding: 18px;width: 100%;border: none;text-align: left;outline: none;font-size: 15px;}
+.active, .collapsible:hover {background-color: #555;}
+.content {padding: 0 18px;display: none;overflow: hidden;background-color: #f1f1f1;}
 </style>
 
 <div class="text-center">
 
-{{ include('profile/profile-menu.html.twig') }}
-    <h1>My Orders</h1><br/><hr>
-    <h3>Current Cart</h3><br/>
-    
-    
-    
-    <hr>
+  {{ include('profile/profile-menu.html.twig') }}
+  <h3>{{ 'order.title'|trans }}</h3><br />
 
-    <h3>Older Order</h3><br/>
-    
-    
-    
-    
-    <hr>
+  {% if cartOld is not empty %}
+  {% for cart in cartOld %}
+
+  {# déclaration de variable de stockage #}
+  {% set total_cart = 0 %}
+  {% set line_cart = 0 %}
+
+  <button type="button" class="collapsible">{{ 'order.btn'|trans ~' '~ cart.id }}</button>
+  <div class="content">
+    <table class="table text-center">
+      <thead>
+        <td colspan="5"> {{ 'order.thead'|trans }}
+          {{ cart.dateBought|date('d-m-Y') }}
+        </td>
+      </thead>
+
+      {% for content in contentOld %}
+
+
+      <tr class="text-center">
+
+        {% if cart.id ==  content.cart.id %}
+
+        {# calcule de la ligne et du total #}
+        {% set line_total = content.product.price * content.quantity %}
+        {% set total_cart = total_cart + line_total %}
+
+        {# affichage info des produits du panier false #}
+        <td><img src="{{ asset('upload/product/'~content.product.picture)}}"
+            style="height:100px;width:150px;object-fit: cover;" /></td>
+        <td> {{ content.product.nom }} </td>
+        <td> {{ content.product.price }}€</td>
+        <td> {{ content.quantity }} </td>
+        <td> {{ line_total }}€ </td>
+      </tr>
+
+      {% endif %}
+      {% endfor %}
+
+      <tr>
+        <td colspan="4">total :</td>
+        <td>{{ total_cart }}€</td>
+      </tr>
+    </table>
+
+  </div>
+  {% endfor %}
+
+  {# si l'user n'a encore rien acheté #}
+  {% else %}
+  <p>{{ 'order.no'|trans }}</p>
+  {% endif %}
+
+  <br><br>
+
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+  </script>
 
 
 </div>

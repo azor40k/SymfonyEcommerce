@@ -19,22 +19,27 @@ class CartRepository extends ServiceEntityRepository
         parent::__construct($registry, Cart::class);
     }
 
-    // /**
-    //  * @return Cart[] Returns an array of Cart objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /** Recherche des paniers non achetés du plus récent */
+    public function findFalseByNewest()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('c.state = false')
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function findTrueByNewest()
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.state = true')
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?Cart

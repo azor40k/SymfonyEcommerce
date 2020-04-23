@@ -1,10 +1,11 @@
 {% extends "base.html.twig" %}
-{% block title %}ADMINISTRATION | All Member{% endblock %}
+{% block title %}{{ 'admin.title'|trans }}{% endblock %}
 
 {% block body %}
+{# include le menu de la page admin #}
 {{ include('admin/admin-menu.html.twig') }}
 
-<h1 class="text-center">Users List</h1>
+<h1 class="text-center">{{ 'admin.user.title'|trans }}</h1>
 
 {% if users is not empty %}
 <table class="table text-center" border="0">
@@ -12,22 +13,22 @@
     <thead>
         <tr>
             <th>{{users|length }}</th>
-            <th>Profile Picture</th>
-            <th>E-Mail</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Role</th>
-            <th>Permission</th>
-            <th>Action</th>
+            <th>{{ 'admin.user.th1'|trans }}</th>
+            <th>{{ 'admin.user.th2'|trans }}</th>
+            <th>{{ 'admin.user.th3'|trans }}</th>
+            <th>{{ 'admin.user.th4'|trans }}</th>
+            <th>{{ 'admin.user.th5'|trans }}</th>
+            <th>{{ 'admin.user.th6'|trans }}</th>
         </tr>
     </thead>
 
     <tbody>
         {% for user in users %}
         <tr>
+            {# affichage données des membres #}
             <td>
                 {% if user.id == app.user.id %}
-                You
+                {{ 'admin.user.you'|trans }}
                 {% else %}
                 {% endif %}
             </td>
@@ -37,34 +38,31 @@
             <td>{{ user.nom|upper }}</td>
             <td>{{ user.prenom|capitalize }}</td>
             <td>
+                {# affichage du role selon permission #}
                 {% if user.roles|length == 3 %}
-                <span class="text-success">SUPER ADMINISTRATOR</span>
+                <span class="text-success">{{ 'statut.s'|trans }} </span>
                 {% elseif user.roles|length == 2 %}
-                <span class="text-warning">ADMINISTRATOR</span>
+                <span class="text-warning">{{ 'statut.a'|trans }}</span>
                 {% else %}
-                <span class="text-primary">Member</span>
+                <span class="text-primary">{{ 'statut.m'|trans }}</span>
                 {% endif %}
             </td>
             {% if user.id != app.user.id %}
             <td>
 
+                {# affichage du bouton de changement selon le role actuel #}
                 {% if user.roles == ['ROLE_USER','ROLE_ADMIN', 'ROLE_SUPER_ADMIN']  %}
-                <a class="btn btn-warning"href=" {{ path('editRolePerm', {'id': user.id}) }}"> set Admin </a>
-                <a class="btn btn-primary"href=" {{ path('user_editRole', {'id': user.id}) }}"> set Member </a>
+                <a class="btn btn-warning"href=" {{ path('editRolePerm', {'id': user.id}) }}"> {{ 'admin.user.btna'|trans }} </a>
+                <a class="btn btn-primary"href=" {{ path('user_editRole', {'id': user.id}) }}">{{ 'admin.user.btnm'|trans }}</a>
                 {% elseif user.roles == ['ROLE_USER'] %}
-                <a class="btn btn-success"href=" {{ path('user_editRole', {'id': user.id}) }}"> set super Admin </a>
-                <a class="btn btn-warning"href=" {{ path('editRolePerm', {'id': user.id}) }}"> set Admin </a>
+                <a class="btn btn-success"href=" {{ path('user_editRole', {'id': user.id}) }}"> {{ 'admin.user.btns'|trans }}</a>
+                <a class="btn btn-warning"href=" {{ path('editRolePerm', {'id': user.id}) }}"> {{ 'admin.user.btna'|trans }} </a>
                 {% else %}
-                <a class="btn btn-success"href=" {{ path('user_editRole', {'id': user.id}) }}"> set super Admin </a>
-                <a class="btn btn-primary"href=" {{ path('editRolePerm', {'id': user.id}) }}"> set Member </a>
+                <a class="btn btn-success"href=" {{ path('user_editRole', {'id': user.id}) }}"> {{ 'admin.user.btns'|trans }} </a>
+                <a class="btn btn-primary"href=" {{ path('editRolePerm', {'id': user.id}) }}"> {{ 'admin.user.btnm'|trans }} </a>
                 
                 {% endif %}
 
-            </td>
-            <td>
-            {% if user.roles != ['ROLE_USER','ROLE_ADMIN', 'ROLE_SUPER_ADMIN'] %}
-                <a class="btn btn-danger" href=" {{ path('user_delete', {'id': user.id }) }} ">Delete</a>
-            {% endif %}
             </td>
             {% else %}
             <td></td>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}{{ 'index.title'|trans }}{% endblock %}
 
 {% block body %}
 <style>
@@ -11,13 +11,13 @@
 </style>
 <div>
 
-    <h1 class="font-weight-bold text-center">Symfony Sneaker Factory</h1>
+    <h1 class="font-weight-bold text-center">{{ 'base.nav.brand'|trans }}</h1>
     <hr>
     {% if products is not empty %}
     <div class="grid-product text-center">
 
         {% for product in products %}
-        <a class="btn btn-light"href="{{ path('proshow', {'nom': product.nom } ) }}">
+        <a class="btn btn-light" href="{{ path('proshow', {'nom': product.nom } ) }}">
             <div class="text-center" style="height:260px; width:250px;margin:auto; ">
                 <div><img src="{{ asset('upload/product/'~product.picture)}}"
                         style="height:180px;width:250px;object-fit: cover;" />
@@ -32,11 +32,7 @@
 
     </div>
     {% else %}
-    <h3 class="text-danger">no </h3>
-    {% endif %}
-
-    {% if is_granted('ROLE_ADMIN') %}<br/><hr>
-    <a class="btn btn-info" href="{{ path('product_new') }}">Add Product</a><br/><br/>
+    <h3 class="text-danger">{{ 'index.no'|trans }}</h3>
     {% endif %}
 
 </div>

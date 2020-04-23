@@ -1,0 +1,157 @@
+#/translations/messages.fr.yaml
+
+#twig
+
+#base.html
+base : 
+  deconnexion: 'Déconnexion'
+  connexion: 'Connexion'
+  inscription: 'Inscription'
+  nav:
+    brand: 'Symfony Sneaker Factory'
+    li1: 'Panier'
+    li2: 'Administration'
+    div:
+      a1: 'Profile'
+      a2: 'Vos Commandes'
+  
+#boutton
+enlever : 'Enlever'
+acheter : 'Acheter'
+delete: 'Supprimer'
+delete2: 'Supprimer Profile'
+delete3: 'Supprimer Produit'
+retourp: 'Retour Profile'
+retour: 'Retour'
+mod: 'Modifier'
+save: 'Sauvegarder'
+add: 'Ajouter au Magasin'
+up: 'Mettre à Jour'
+
+#login.html
+login:
+  div: 'Vous êtes connecté en tant que '
+  mdp: 'Mot de Passe'
+
+#register.html
+register:
+  title: 'Inscription'
+#Formulaire
+Nom : 'Nom'
+Prenom : 'Prénom'
+Email : 'E-Mail'
+Plain password : 'Mot de Passe'
+Agree terms : 'Accepter les conditions'
+Description: 'Description'
+Price: 'Prix'
+Stock: 'Quantité'
+Product Picture: 'Photo du Produit'
+
+#index.html
+index:
+  title: 'Accueil'
+  no: 'Pas de produit disponible pour le moment'
+  show: 
+    title: 'Fiche'
+    p: 'Vous devez être connecté pour ajouté ce produit au panier'
+    stock: 'Réserve disponible'
+
+#cart content
+content:
+  title: 'Votre Panier'
+  no: 'Aucun produit dans votre panier'
+  table:
+    td1: 'Produit'
+    td2: 'Prix'
+    td3: 'Quantité'  
+    td4: 'Action'
+
+  #old orders
+order:
+  title: 'Mes Commandes'
+  btn: 'Commande n°'
+  thead: 'Acheté le'
+  no: 'Pas de commandes réalisées'
+
+#profile
+profile:
+  edit:
+    title: 'Editeur de Profile'
+statut:
+  s: 'Super Administrateur'
+  a: 'Administrateur'
+  m: 'Membre'
+
+#administration
+admin:
+  title: 'Administration'
+  nav: 
+    li1: 'Produits'
+    li2: 'Tous les Membres'
+    li3: 'Commandes en Cours'
+  produit:
+    title: 'Liste des Produits'
+    btn: 'Ajouter un Produit'
+    btns: 'Afficher'
+    btne: 'Modifier'
+    thead:
+      tr1: 'Photo'
+      tr2: 'Nom'
+      tr3: 'Prix'
+      tr4: 'Réserve'
+      tr5: 'Actions'
+      tr6: 'Description'
+    no: 'Pas de produit en magasin'
+    edit:
+      title: 'Modification du Produit'
+      img: 'Aperçu'
+    show:
+      title: 'Produit'
+    new:
+      title: 'Nouveau Produit'
+  user:
+    title: 'Liste des Membres'
+    you: 'Vous'
+    th1: 'Photo de Profile'
+    th2: 'E-Mail'
+    th3: 'Nom'
+    th4: 'Prénom'
+    th5: 'Role'
+    th6: 'Permission'
+    btns: 'Mettre SuperAdmin'
+    btna: 'Mettre Admin'
+    btnm: 'Mettre Membre'
+  order:
+    title: 'Commandes en cours'
+    no: 'Pas de commande en cours'
+    c: 'commande n°'
+    t: 'total :'
+
+
+#add Flash
+file: 
+  error: 'Une erreur est survenue'
+  connect: 'Vous devez être connecté'
+  permission: "Vous n'avez pas les permissions"
+
+  #produit
+  prore: 'Produit enlever'
+  proout: 'Quantité insuffisante de la réserve de '
+  cartook: 'Panier Acheté'
+  proadd: 'Produit Ajouté au Panier'
+  prono: 'Quantité invalide'
+  pro404: 'Produit Introuvable'
+  pro404p: 'Image manquante'
+  procreate: 'Produit ajouté au Magasin'
+  promaj: 'Produit Mis à Jour'
+  prodel: 'Produit supprimé'
+
+  #user
+  usermaj: 'Profile Mis à Jour'
+
+  #register
+  regsa: 'Bonjour Super Administrateur'
+  regok: 'Bienvenue à toi!'
+
+  #member
+  rolec: 'Permission changé'

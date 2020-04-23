@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Your Cart{% endblock %}
+{% block title %}{{ 'content.title'|trans }}{% endblock %}
 
 {% block body %}
 <style>
@@ -12,65 +12,70 @@ thead {width: calc( 100% - 1em )}
 
 <div>
 
-    <h1 class="text-center">Your Cart</h1>    
+    <h1 class="text-center">{{ 'content.title'|trans }}</h1>
 
-{% if cart is not empty %}
+    {% if cart is not empty and contents|length > 0 %}
+
     <table class="table text-center">
         <thead>
             <tr>
-                <th colspan="2">product</th>
-                <th>price</th>
-                <th>qte</th>
+                <th colspan="2">{{ 'content.table.td1'|trans }}</th>
+                <th>{{ 'content.table.td2'|trans }}</th>
+                <th>{{ 'content.table.td3'|trans }}</th>
                 <th></th>
-                <th>Actions</th>
+                <th>{{ 'content.table.td4'|trans }}</th>
             </tr>
         </thead>
         <tbody>
 
-            
-            
+
+
             {% set total_cart = 0 %} {# déclaration de la valeur total hors de la boucle #}
+
+
 
             {% for content in contents %}
 
             <tr class="text-center">
 
                 {# affichage info des produits du panier actif #}
-                <td><img src="{{ asset('upload/product/'~content.product.picture)}}"style="height:100px;width:150px;object-fit: cover;"/></td>
+                <td><img src="{{ asset('upload/product/'~content.product.picture)}}"
+                        style="height:100px;width:150px;object-fit: cover;" /></td>
                 <td> {{ content.product.nom }} </td>
                 <td> {{ content.product.price }}€</td>
                 <td> {{ content.quantity }} </td>
                 <td>
 
-                {% set line_total = content.product.price * content.quantity %} {# calcul prix total de la ligne #}
-                {{ line_total }}€ {# affichage prix total de la ligne #}
+                    {% set line_total = content.product.price * content.quantity %} {# calcul prix total de la ligne #}
+                    {{ line_total }}€ {# affichage prix total de la ligne #}
 
-                {% set total_cart = total_cart + line_total %} {# calcul prix total du panier #}
+                    {% set total_cart = total_cart + line_total %} {# calcul prix total du panier #}
 
-                </td> 
+                </td>
 
                 {# suppresion du produit du panier via id #}
-                <td><a class="btn btn-danger" href=" {{ path('removeCart', {'id' : content.id }) }} ">remove</a></td>
+                <td><a class="btn btn-danger"
+                        href=" {{ path('removeCart', {'id' : content.id }) }} ">{{ 'enlever'|trans }}</a></td>
                 {# <td>{{ dump(content) }}</td> #}
 
             </tr>
             {% endfor %}
-            <tfoot>
-                <tr>
-                    <td colspan="4">Total:</td>
-                    <td>{{ total_cart }}€</td> {# affichage prix total du panier #}
-                    <td><a class="btn btn-primary" href=" {{ path('buyCart') }} ">acheter</a></td>
-                </tr> 
-            </tfoot>
-            
+
+
+        <tfoot>
+            <tr>
+                <td colspan="4">Total:</td>
+                <td>{{ total_cart }}€</td> {# affichage prix total du panier #}
+                <td><a class="btn btn-primary" href=" {{ path('buyCart') }} ">{{ 'acheter'|trans }}</a></td>
+            </tr>
+        </tfoot>
+
         </tbody>
     </table>
 
-{% else %}                
+    {% else %}
+    <h4 class=" text-center text-danger">{{ 'content.no'|trans }}</h4>
+    {% endif %}
 
-    <h4 class=" text-center text-danger">NOPE</h4>
-
-{% endif %}
-    
 </div>
 {% endblock %}
